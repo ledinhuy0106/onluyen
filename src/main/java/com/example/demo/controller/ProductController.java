@@ -6,14 +6,11 @@ import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping
+@RequestMapping("api/products")
 public class ProductController {
     @Autowired
     ProductService productService;
@@ -24,5 +21,10 @@ public class ProductController {
     public ResponseEntity<Iterable<Product>> findAll() {
         Iterable<Product> products = productService.findAll();
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+    @PostMapping
+    public ResponseEntity<Product> create(@RequestBody Product product) {
+        productService.save(product);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 }
