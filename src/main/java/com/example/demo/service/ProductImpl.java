@@ -30,4 +30,9 @@ public class ProductImpl implements ProductService{
     public void remove(int id) {
       productRepo.deleteById(id);
     }
+
+    @Override
+    public Iterable<Product> findByNameContaining(String name) {
+        return productRepo.findByNameContaining(name);
+    }
 }

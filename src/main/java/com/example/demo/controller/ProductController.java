@@ -25,29 +25,46 @@ public class ProductController {
         Iterable<Product> products = productService.findAll();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody Product product) {
         productService.save(product);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> delete(@PathVariable Integer id) {
         productService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Product> detail(@PathVariable Integer id) {
         Optional<Product> product = productService.findById(id);
         return new ResponseEntity<>(product.get(), HttpStatus.OK);
     }
+
     @GetMapping("/category")
     public ResponseEntity<Iterable<Category>> getAll() {
         Iterable<Category> categories = categoryService.findAll();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+
     @GetMapping("/category/{id}")
     public ResponseEntity<Category> detailCategories(@PathVariable Integer id) {
         Optional<Category> category = categoryService.findById(id);
         return new ResponseEntity<>(category.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/?q")
+    public ResponseEntity<Iterable<Product>> search(@RequestParam String q) {
+        Iterable<Product> products;
+        if (q == null) {
+            products = productService.findAll();
+        } else {
+            products = productService.findByNameContaining(q);
+
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }
