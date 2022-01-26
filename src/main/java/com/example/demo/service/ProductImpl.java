@@ -33,7 +33,7 @@ public class ProductImpl implements ProductService{
 
     @Override
     public Iterable<Product> findByNameContaining(String name) {
-        return productRepo.findByNameContaining(name);
+        return productRepo.findAllByNameContaining(name);
     }
 
     @Override

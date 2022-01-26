@@ -56,10 +56,10 @@ public class ProductController {
         return new ResponseEntity<>(category.get(), HttpStatus.OK);
     }
 
-    @GetMapping("name/?q")
-    public ResponseEntity<Iterable<Product>> search(@PathVariable String q) {
+    @GetMapping("name/{q}")
+    public ResponseEntity<Iterable<Product>> search(String q) {
         Iterable<Product> products;
-        if (q == null) {
+        if (q=="") {
             products = productService.findAll();
         } else {
             products = productService.findByNameContaining(q);
@@ -68,7 +68,7 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("price")
+    @GetMapping("price/{price}/{price2}")
     public ResponseEntity<Iterable<Product>> findByPrice(Integer price, Integer price2){
         Iterable<Product> products;
         if (price!=null&price2==null||price2!=null&price==null){
