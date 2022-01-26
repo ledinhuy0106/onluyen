@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Category;
 import com.example.demo.model.Product;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
@@ -38,5 +39,10 @@ public class ProductController {
     public ResponseEntity<Product> detail(@PathVariable Integer id) {
         Optional<Product> product = productService.findById(id);
         return new ResponseEntity<>(product.get(), HttpStatus.OK);
+    }
+    @GetMapping("/category")
+    public ResponseEntity<Iterable<Category>> getAll() {
+        Iterable<Category> categories = categoryService.findAll();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }
