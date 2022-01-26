@@ -45,4 +45,9 @@ public class ProductController {
         Iterable<Category> categories = categoryService.findAll();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Category> detailCategories(@PathVariable Integer id) {
+        Optional<Category> category = categoryService.findById(id);
+        return new ResponseEntity<>(category.get(), HttpStatus.OK);
+    }
 }
