@@ -56,8 +56,8 @@ public class ProductController {
         return new ResponseEntity<>(category.get(), HttpStatus.OK);
     }
 
-    @GetMapping("/?q")
-    public ResponseEntity<Iterable<Product>> search(@RequestParam String q) {
+    @GetMapping("name/?q")
+    public ResponseEntity<Iterable<Product>> search(@PathVariable String q) {
         Iterable<Product> products;
         if (q == null) {
             products = productService.findAll();
@@ -68,8 +68,8 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("price/?price,price2")
-    public ResponseEntity<Iterable<Product>> findByPrice(@RequestParam Integer price, Integer price2){
+    @GetMapping("price")
+    public ResponseEntity<Iterable<Product>> findByPrice(Integer price, Integer price2){
         Iterable<Product> products;
         if (price!=null&price2==null||price2!=null&price==null){
             products=productService.findByPrice(price);
