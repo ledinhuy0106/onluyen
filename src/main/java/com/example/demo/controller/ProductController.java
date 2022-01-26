@@ -65,6 +65,21 @@ public class ProductController {
             products = productService.findByNameContaining(q);
 
         }
-        return new ResponseEntity<>(products, HttpStatus.OK);;
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("price/?price,price2")
+    public ResponseEntity<Iterable<Product>> findByPrice(@RequestParam Integer price, Integer price2){
+        Iterable<Product> products;
+        if (price!=null&price2==null||price2!=null&price==null){
+            products=productService.findByPrice(price);
+        }
+        else if (price==null&price2==null){
+            products = productService.findAll();
+        }
+        else {
+            products=productService.findByPriceBetween(price,price2);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }
