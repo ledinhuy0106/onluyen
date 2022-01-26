@@ -65,6 +65,6 @@ public class ProductController {
             products = productService.findByNameContaining(q);
 
         }
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products, HttpStatus.OK);;
     }
 }
